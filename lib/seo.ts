@@ -23,6 +23,9 @@ const TITLE_OVERRIDES: Record<number, string> = {
   46: 'Camel Tagine Recipe — Moroccan Camel Meat Stew',
   54: 'Stuffed Tripe Recipe — Osban Sausage',
   56: 'Dfina Recipe — Moroccan Sabbath Stew',
+  // W2 watchtower striking additions (2026-10-12): bocadillo 11.1/12i, berkoukes 20.4/5i.
+  5: 'Bocadillo de Calamares — Fried Squid Sandwich Recipe',
+  57: 'Berkoukes — Algerian Pearl Couscous Stew Recipe',
 }
 
 const DESCRIPTION_OVERRIDES: Record<number, string> = {
@@ -37,6 +40,8 @@ const DESCRIPTION_OVERRIDES: Record<number, string> = {
   46: 'Camel tagine: Saharan camel meat slow-cooked with Moroccan savory spices — the deep camel-meat stew.',
   54: 'Osban — tripe casings packed with rice, herbs, and chickpeas, gently simmered: the stuffed-tripe sausage of Gabès.',
   56: 'Dfina — Sabbath beef, chickpeas, potatoes, and shell-on eggs, cooked overnight: the Moroccan Sabbath stew.',
+  5: 'Bocadillo de calamares: flour-dusted fried squid rings packed into a crusty baguette with lemon — the Tangier street sandwich, 25 minutes.',
+  57: 'Berkoukes: hand-rolled semolina pearls stewed in a hearty vegetable-chickpea broth — the Algerian comfort one-pot.',
 }
 
 export function recipeSeoTitle(recipe: Recipe): string {
