@@ -17,6 +17,7 @@ jobs:
         with:
           node-version: '24'
       - run: corepack enable && corepack prepare pnpm@11.11.0 --activate
+      - run: git diff --exit-code 0a8f408b542458d2f144cbc02324411f54f28b96 -- components/hero.tsx
       - run: pnpm install --frozen-lockfile && pnpm lint && pnpm build
       - name: Build unchanged baseline in isolated temporary worktree
         run: |

@@ -42,8 +42,6 @@ export function Hero() {
         <figure className="group relative mt-2 aspect-[16/7] w-full max-w-md overflow-hidden rounded-xl border border-border">
           <Image
             src="/images/harissa.webp"
-            priority
-            fetchPriority="high"
             alt="Deep red harissa paste with dried chilies and olive oil"
             fill
             sizes="(max-width: 768px) calc(100vw - 3rem), 28rem"
