@@ -7,6 +7,13 @@ import { SiteFooter } from '@/components/site-footer'
 import { CATEGORIES, RECIPES } from '@/lib/recipes'
 import { SITE_NAME, SITE_URL } from '@/lib/schema'
 
+const STARTING_POINTS: Record<string, { note: string; ids: number[] }> = {
+  'street-food': { note: 'Compare a filled pastry with potato fritters.', ids: [1, 3] },
+  'tagines-stews': { note: 'Choose between a preserved-lemon chicken braise and tomato-sauce meatballs.', ids: [31, 33] },
+  'sephardic-traditions': { note: 'Explore an egg dish alongside a spiced fish record.', ids: [61, 64] },
+  condiments: { note: 'Compare a dried-chile paste with an herb marinade; each has its own ingredients and method.', ids: [91, 93] },
+}
+
 function getCategory(slug: string) {
   return CATEGORIES.find((category) => category.slug === slug)
 }
@@ -87,6 +94,18 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             {recipes.length} editorial recipe records from North African and related regional food
             traditions. Use each entry&apos;s source and safety notes alongside your own judgment.
           </p>
+
+          <aside className="mt-8 rounded-xl border border-border bg-card p-5" aria-labelledby="starting-points">
+            <h2 id="starting-points" className="font-serif text-2xl">Where to start</h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{STARTING_POINTS[category.slug].note}</p>
+            <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+              {STARTING_POINTS[category.slug].ids.map((id) => {
+                const recipe = recipes.find((entry) => entry.id === id)
+                if (!recipe) return null
+                return <li key={id}><Link href={`/recipes/${id}`} className="inline-flex min-h-6 items-center text-primary underline underline-offset-4">{recipe.name}</Link></li>
+              })}
+            </ul>
+          </aside>
 
           <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-6">
             {recipes.map((recipe) => (
