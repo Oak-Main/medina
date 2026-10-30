@@ -108,8 +108,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           </aside>
 
           <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-6">
-            {recipes.map((recipe) => (
-              <RecipeCard key={recipe.id} recipe={recipe} />
+            {recipes.map((recipe, index) => (
+              <RecipeCard key={recipe.id} recipe={recipe} eager={index < 2} />
             ))}
           </div>
         </section>
