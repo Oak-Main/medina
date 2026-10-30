@@ -21,7 +21,8 @@ export function RecipeCard({ recipe, eager = false }: { recipe: Recipe; eager?: 
           src={recipe.image || '/placeholder.svg'}
           alt={`${recipe.name}, a ${recipe.category.toLowerCase()} dish from ${recipe.region}`}
           fill
-          loading={eager ? 'eager' : 'lazy'}
+          priority={eager}
+          loading={eager ? undefined : 'lazy'}
           fetchPriority={eager ? 'high' : 'auto'}
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 22vw"
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-110 group-focus-visible:scale-110"

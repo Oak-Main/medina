@@ -20,11 +20,12 @@ try{
    assert.ok(d.scroll<=width+1,JSON.stringify({route,width,...d}));
    if(route==='/'){
     const image=page.locator('img[alt="Deep red harissa paste with dried chilies and olive oil"]');
-    assert.equal(await image.getAttribute('loading'),'eager'); assert.equal(await image.getAttribute('fetchpriority'),'high');
+    assert.notEqual(await image.getAttribute('loading'),'lazy');
+    assert.ok((await page.locator('link[rel="preload"][as="image"]').evaluateAll(es=>es.map(e=>e.getAttribute('imagesrcset')||e.getAttribute('href')||'').join(' '))).includes('harissa.webp')); assert.equal(await image.getAttribute('fetchpriority'),'high');
    }
    if(route==='/categories/street-food'){
     const cards=page.locator('main div.grid img');
-    assert.equal(await cards.nth(0).getAttribute('loading'),'eager'); assert.equal(await cards.nth(1).getAttribute('loading'),'eager'); assert.equal(await cards.nth(2).getAttribute('loading'),'lazy');
+    assert.notEqual(await cards.nth(0).getAttribute('loading'),'lazy'); assert.notEqual(await cards.nth(1).getAttribute('loading'),'lazy'); assert.equal(await cards.nth(2).getAttribute('loading'),'lazy');
    }
    results.push({width,route,status:'PASS',case:'render, landmarks, image alt attributes, no horizontal overflow',...d});
    await page.screenshot({path:'w14-receipts/'+width+'-'+(route==='/'?'home':route==='/recipes'?'catalog':'recipe')+'.png'});
