@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { ArrowDown, Flame } from 'lucide-react'
 
 export function Hero() {
@@ -23,12 +24,15 @@ export function Hero() {
         </p>
 
         <div className="flex flex-wrap items-center gap-4">
-          <a
-            href="#street-food"
+          <Link
+            href="/recipes"
             className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-transform hover:scale-[1.03] focus-visible:scale-[1.03] active:scale-[0.98]"
           >
-            Explore the Codex
+            Browse all 120 recipes
             <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5 group-focus-visible:translate-y-0.5" />
+          </Link>
+          <a href="#street-food" className="rounded-full px-3 py-3 text-sm text-primary underline underline-offset-4">
+            Start with street food
           </a>
           <span className="text-sm text-muted-foreground">
             Saffron M’qualli · Paprika M’hammar
