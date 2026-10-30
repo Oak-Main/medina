@@ -82,7 +82,7 @@ export default function EditorialStandardsPage() {
               <p className="mt-3">
                 Optional affiliate links are separated from citations and are disclosed before a
                 reader encounters them. They do not determine editorial coverage or safety notes.
-                To report a factual issue, write to Oak and Main Developers LLC at 2108 N St.,
+                To report a factual issue, write to Oak &amp; Main Developers LLC at 2108 N St.,
                 Sacramento, CA 95816, United States, identifying the relevant recipe URL and
                 source where possible.
               </p>

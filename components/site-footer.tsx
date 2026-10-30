@@ -105,7 +105,7 @@ export function SiteFooter() {
 
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-5 py-6 text-xs text-muted-foreground sm:flex-row md:px-8">
-          <p>© {new Date().getFullYear()} Oak and Main Developers LLC.</p>
+          <p>© {new Date().getFullYear()} Oak &amp; Main Developers LLC.</p>
           <p>From the Atlantic Coast to the Red Sea.</p>
         </div>
       </div>
