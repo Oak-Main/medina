@@ -14,7 +14,7 @@ export function RecipeGrid({ query }: { query: string }) {
     const applyHashFilter = () => {
       const slug = window.location.hash.slice(1)
       const category = CATEGORIES.find((entry) => entry.slug === slug)
-      if (category) setFilter(category.label)
+      setFilter(category?.label ?? 'All')
     }
 
     applyHashFilter()
