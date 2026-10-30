@@ -30,7 +30,7 @@ export default function PrivacyPage() {
       <DetailNav />
       <main id="main-content" className="relative min-h-screen">
         <article className="mx-auto max-w-3xl px-5 pb-24 pt-36 md:px-8">
-          <p className="text-xs uppercase tracking-[0.4em] text-primary">Effective August 24, 2026</p>
+          <p className="text-xs uppercase tracking-[0.4em] text-primary">Updated October 30, 2026</p>
           <h1 className="mt-3 font-serif text-4xl tracking-tight text-balance sm:text-5xl">
             Privacy notice
           </h1>
@@ -39,11 +39,11 @@ export default function PrivacyPage() {
             <section>
               <h2 className="font-serif text-2xl tracking-tight">Who operates this site</h2>
               <p className="mt-3">
-                The Maghreb Culinary Codex is operated by Oak and Main Developers LLC, a
+                The Maghreb Culinary Codex is operated by Oak &amp; Main Developers LLC, a
                 California limited liability company. Written privacy requests may be mailed to:
               </p>
               <address className="mt-3 not-italic text-muted-foreground">
-                Oak and Main Developers LLC<br />
+                Oak &amp; Main Developers LLC<br />
                 2108 N St.<br />
                 Sacramento, CA 95816<br />
                 United States
@@ -69,11 +69,11 @@ export default function PrivacyPage() {
             <section>
               <h2 className="font-serif text-2xl tracking-tight">Cookies, analytics, and location</h2>
               <p className="mt-3">
-                The site does not intentionally deploy advertising, marketing, session, or
-                analytics cookies. It does not ask for precise device location, and it does not
-                use advertising pixels or a third-party analytics script. Your browser or the
-                hosting provider may still use strictly necessary technical mechanisms to deliver
-                and secure a request.
+                This site loads a Google Analytics tag to measure site usage. The tag may use
+                cookies or similar identifiers and send usage and device information to Google.
+                Your browser settings may let you block or delete cookies. The site does not ask
+                for precise device location. The hosting provider may also use technical
+                mechanisms to deliver and secure a request.
               </p>
             </section>
 
@@ -94,7 +94,7 @@ export default function PrivacyPage() {
             <section>
               <h2 className="font-serif text-2xl tracking-tight">Your choices and California rights</h2>
               <p className="mt-3">
-                Oak and Main Developers LLC does not sell or share personal information for
+                Oak &amp; Main Developers LLC does not sell or share personal information for
                 cross-context behavioral advertising through this site. Because the site does not
                 create visitor accounts or maintain a first-party marketing database, there is
                 generally no profile to access or delete. You may still mail a privacy request to
@@ -107,7 +107,7 @@ export default function PrivacyPage() {
               <h2 className="font-serif text-2xl tracking-tight">Changes to this notice</h2>
               <p className="mt-3">
                 We will update this page before materially changing the site&apos;s data practices.
-                The effective date above shows when this notice was last revised.
+                The date above shows when this notice was last revised.
               </p>
             </section>
           </div>
