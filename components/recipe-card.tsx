@@ -10,7 +10,7 @@ function formatMinutes(minutes: number): string {
   return rest ? `${hours}h ${rest}m` : `${hours}h`
 }
 
-export function RecipeCard({ recipe }: { recipe: Recipe }) {
+export function RecipeCard({ recipe, eager = false }: { recipe: Recipe; eager?: boolean }) {
   return (
     <Link
       href={`/recipes/${recipe.id}`}
@@ -21,6 +21,9 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
           src={recipe.image || '/placeholder.svg'}
           alt={`${recipe.name}, a ${recipe.category.toLowerCase()} dish from ${recipe.region}`}
           fill
+          priority={eager}
+          loading={eager ? undefined : 'lazy'}
+          fetchPriority={eager ? 'high' : 'auto'}
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 22vw"
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-110 group-focus-visible:scale-110"
         />
