@@ -9,14 +9,23 @@ try{
  for(const width of [320,390,768,1363]){
   const context=await browser.newContext({viewport:{width,height:936},hasTouch:width<768,isMobile:width<768,deviceScaleFactor:1});
   const page=await context.newPage();
-  for(const route of ['/','/recipes','/recipes/1']){
+  for(const route of ['/','/recipes','/categories/street-food','/recipes/1']){
    const response=await page.goto(base+route,{waitUntil:'networkidle'});
    assert.equal(response?.status(),200);
    assert.equal(await page.locator('main').count(),1);
    assert.equal(await page.locator('h1').count(),1);
    assert.equal(await page.locator('img:not([alt])').count(),0);
    const d=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
-   assert.ok(d.scroll<=d.width+1,JSON.stringify({route,width,...d}));
+   assert.equal(d.width,width,'viewport must not expand');
+   assert.ok(d.scroll<=width+1,JSON.stringify({route,width,...d}));
+   if(route==='/'){
+    const image=page.locator('img[alt="Deep red harissa paste with dried chilies and olive oil"]');
+    assert.equal(await image.getAttribute('loading'),'eager'); assert.equal(await image.getAttribute('fetchpriority'),'high');
+   }
+   if(route==='/categories/street-food'){
+    const cards=page.locator('main div.grid img');
+    assert.equal(await cards.nth(0).getAttribute('loading'),'eager'); assert.equal(await cards.nth(1).getAttribute('loading'),'eager'); assert.equal(await cards.nth(2).getAttribute('loading'),'lazy');
+   }
    results.push({width,route,status:'PASS',case:'render, landmarks, image alt attributes, no horizontal overflow',...d});
    await page.screenshot({path:'w14-receipts/'+width+'-'+(route==='/'?'home':route==='/recipes'?'catalog':'recipe')+'.png'});
   }

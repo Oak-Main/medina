@@ -1,0 +1,75 @@
+name: W12 paired three-template lab
+on:
+  pull_request:
+    branches: [main]
+    paths: ['components/hero.tsx','components/recipe-card.tsx','app/categories/**','.github/workflows/w12-paired-lab.yml']
+permissions:
+  contents: read
+jobs:
+  paired:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - run: corepack enable && corepack prepare pnpm@11.11.0 --activate
+      - run: pnpm install --frozen-lockfile && pnpm lint && pnpm build
+      - name: Build unchanged baseline in isolated temporary worktree
+        run: |
+          git worktree add --detach "$RUNNER_TEMP/w12-base" 0a8f408b542458d2f144cbc02324411f54f28b96
+          pnpm --dir "$RUNNER_TEMP/w12-base" install --frozen-lockfile
+          pnpm --dir "$RUNNER_TEMP/w12-base" build
+      - name: Install pinned lab runtime
+        run: npm install --prefix "$RUNNER_TEMP/w12-lab" --no-save --package-lock=false lighthouse@13.6.0
+      - name: Compare local production builds; no external writes
+        env:
+          LAB_MODULE_DIR: ${{ runner.temp }}/w12-lab/node_modules
+        run: |
+          pnpm start --hostname 127.0.0.1 --port 4173 > "$RUNNER_TEMP/w12-candidate-server.log" 2>&1 &
+          pnpm --dir "$RUNNER_TEMP/w12-base" start --hostname 127.0.0.1 --port 4174 > "$RUNNER_TEMP/w12-baseline-server.log" 2>&1 &
+          for port in 4173 4174; do
+            for i in $(seq 1 30); do curl --fail --silent "http://127.0.0.1:$port/" > /dev/null && break; sleep 1; done
+            curl --fail --silent "http://127.0.0.1:$port/" > /dev/null
+          done
+          export LAB_CHROME_PATH="$(command -v google-chrome || command -v google-chrome-stable)"
+          "$LAB_CHROME_PATH" --version
+          cat > "$RUNNER_TEMP/w12-paired.mjs" <<'JS'
+          import fs from 'node:fs/promises';
+          import assert from 'node:assert/strict';
+          import {spawnSync} from 'node:child_process';
+          const rows=[];
+          const routes=['/','/categories/street-food','/recipes/1'];
+          await fs.mkdir('w12-paired-receipts',{recursive:true});
+          for(let sample=0;sample<3;sample++)for(const route of routes)for(const variant of ['baseline','candidate']){
+           for(let attempt=0;attempt<2;attempt++){
+            const output=process.env.RUNNER_TEMP+'/lh-'+variant+'-'+sample+'-'+encodeURIComponent(route)+'.json';
+            const url='http://127.0.0.1:'+(variant==='baseline'?4174:4173)+route;
+            const run=spawnSync(process.env.LAB_MODULE_DIR+'/.bin/lighthouse',[url,'--quiet','--chrome-flags=--headless --no-sandbox --disable-dev-shm-usage','--output=json','--output-path='+output,'--only-categories=performance,accessibility','--throttling-method=simulate','--form-factor=mobile','--screenEmulation.mobile=true','--screenEmulation.width=390','--screenEmulation.height=844','--screenEmulation.deviceScaleFactor=1'],{encoding:'utf8',timeout:120000,env:{...process.env,CHROME_PATH:process.env.LAB_CHROME_PATH}});
+            let r;try{r=JSON.parse(await fs.readFile(output,'utf8'))}catch{}
+            const row={variant,route,sample,attempt,fetchTime:r?.fetchTime,exitCode:run.status,version:r?.lighthouseVersion,userAgent:r?.userAgent,benchmark:r?.environment?.benchmarkIndex,error:r?.runtimeError?{code:r.runtimeError.code,message:r.runtimeError.message}:run.error?.message,
+             metrics:r?Object.fromEntries(['first-contentful-paint','largest-contentful-paint','total-blocking-time','cumulative-layout-shift','speed-index'].map(k=>[k,r.audits[k]?.numericValue??null])):null,
+             scores:r?Object.fromEntries(Object.entries(r.categories).map(([k,v])=>[k,v.score])):null,
+             resources:r?.audits['resource-summary']?.details?.items?.map(x=>({resourceType:x.resourceType,requestCount:x.requestCount,transferSize:x.transferSize})),
+             lcp:r?.audits['lcp-discovery-insight']?.details?.items?.filter(x=>x.type==='node').map(x=>({selector:x.selector,label:x.nodeLabel})),
+             accessibilityFindings:r?Object.entries(r.audits).filter(([id,a])=>r.categories.accessibility.auditRefs.some(x=>x.id===id)&&a.score!==null&&a.score<1).map(([id,a])=>({id,title:a.title})):[]};
+            rows.push(row);
+            await fs.writeFile('w12-paired-receipts/results.json',JSON.stringify({observedAt:new Date().toISOString(),baseline:'0a8f408b542458d2f144cbc02324411f54f28b96',candidate:process.env.GITHUB_SHA,protocol:'Single hosted runner; two production Next builds; interleaved cold-client samples; Chrome exact UA retained; Lighthouse13.6.0; simulated mobile150ms RTT/1638.4Kbps/4xCPU;390x844 DPR1. Shared origin cache warmth and sample variance retained; local lab, not field CWV or production network timing. One retained NO_NAVSTART retry per sample; no source/script/analytics removal.',rows},null,2));
+            console.log(variant,route,sample,attempt,row.error||row.metrics);
+            if(!row.error)break;
+            if(row.error.code!=='NO_NAVSTART')break;
+           }
+          }
+          assert.equal(rows.filter(r=>!r.error&&r.metrics?.['largest-contentful-paint']!==null).length,18,'All 18 paired samples must be valid');
+          
+          JS
+          node "$RUNNER_TEMP/w12-paired.mjs"
+      - uses: actions/upload-artifact@v5
+        if: always()
+        with:
+          name: w12-paired-receipts
+          path: w12-paired-receipts/
+          retention-days: 7
