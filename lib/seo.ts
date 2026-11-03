@@ -44,12 +44,15 @@ const DESCRIPTION_OVERRIDES: Record<number, string> = {
   57: 'Berkoukes: hand-rolled semolina pearls stewed in a hearty vegetable-chickpea broth — the Algerian comfort one-pot.',
 }
 
+import { ANSWER_LED_RECIPES } from './answer-led'
+
 export function recipeSeoTitle(recipe: Recipe): string {
-  return TITLE_OVERRIDES[recipe.id] ?? `${recipe.name} Recipe`
+  return ANSWER_LED_RECIPES[recipe.id]?.title ?? TITLE_OVERRIDES[recipe.id] ?? `${recipe.name} Recipe`
 }
 
 export function recipeSeoDescription(recipe: Recipe): string {
   const base =
+    ANSWER_LED_RECIPES[recipe.id]?.description ??
     DESCRIPTION_OVERRIDES[recipe.id] ??
     `${recipe.blurb} Traditional recipe from ${recipe.region}.`
   return base.slice(0, 155)

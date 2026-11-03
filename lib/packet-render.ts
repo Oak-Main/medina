@@ -9,6 +9,8 @@
  * Deterministic packet rebuild (Recipe Finalz workspace):
  *   node scripts/compose-presentation.mjs --all-final --write
  */
+import { ANSWER_LED_RECIPES } from './answer-led'
+
 export interface Packet {
   meta: { slug: string };
   skeleton: string;
@@ -25,8 +27,12 @@ export function packetJsonld(packet: Packet, heroSrc: string): Record<string, un
   return ld;
 }
 
+const escapeHtml = (value: string) =>
+  value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+
 export function renderPacketArticle(packet: Packet, heroSrc: string): string {
   const title = String(packet.jsonld.name ?? packet.meta.slug);
+  const answerLed = Object.values(ANSWER_LED_RECIPES).find((item) => item.slug === packet.meta.slug)
   let body = packet.skeleton;
   const heroCap =
     body.match(/<figure data-block="hero">[\s\S]*?<figcaption>([\s\S]*?)<\/figcaption>/)?.[1] ?? '';
@@ -44,6 +50,22 @@ export function renderPacketArticle(packet: Packet, heroSrc: string): string {
   // are composer spec). Content figures (steps) never carry imgs by design.
   body = body.replace(/<figure data-shot="[^"]*"[^>]*>(?:(?!<img[\s\S])[\s\S])*?<\/figure>/g, '');
   body = body.replace(/<figure data-block="pre-card-glamour"[^>]*>(?:(?!<img[\s\S])[\s\S])*?<\/figure>/g, '');
+  if (answerLed) {
+    body = body.replace(
+      '<div data-block="intro">',
+      `<div data-block="intro"><p class="answer-led">${escapeHtml(answerLed.answer)}</p>`,
+    )
+    const faqHtml = answerLed.faqs
+      .map(
+        (faq) =>
+          `<details><summary>${escapeHtml(faq.question)}</summary><p>${escapeHtml(faq.answer)}</p></details>`,
+      )
+      .join('')
+    body = body.replace(
+      '<div data-block="related"',
+      `<section class="rpc-faq" data-block="faq"><h2>Common questions</h2>${faqHtml}</section>\n<div data-block="related"`,
+    )
+  }
   if (body.includes('src="/assets/recipes/"'))
     throw new Error(`packet drift: ${packet.meta.slug} placeholder survived full-tag strip`);
   if (/<figcaption>[^<]*must match the card/i.test(body))
@@ -56,5 +78,16 @@ export function renderPacketArticle(packet: Packet, heroSrc: string): string {
   const ld = `<script type="application/ld+json">${JSON.stringify(
     packetJsonld(packet, heroSrc),
   ).replace(/</g, '\\u003c')}</script>`;
-  return body + ld;
+  const faqLd = answerLed
+    ? `<script type="application/ld+json">${JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: answerLed.faqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+        })),
+      }).replace(/</g, '\\u003c')}</script>`
+    : ''
+  return body + ld + faqLd;
 }
