@@ -1,112 +1,135 @@
 export type AnswerLedRecipe = {
-  slug: string
   title: string
+  cuisine: string
+  dishType: string
   description: string
   answer: string
   faqs: { question: string; answer: string }[]
+  // A definition may be published while its cooking method awaits culinary review.
+  methodHold?: { message: string; source: string; url: string }
 }
 
-// Query-facing summaries for the November 2026 CTR rescue. Every fact is
-// grounded in the recipe packet already published on the corresponding page.
-export const ANSWER_LED_RECIPES: Record<number, AnswerLedRecipe> = {
+// IDs are the permanent /recipes/[id] routes and the keys in recipe-details.json.
+// Keep the complete branded title within 60 characters.
+export const ANSWER_LED_RECIPES: Partial<Record<number, AnswerLedRecipe>> = {
   11: {
-    slug: 'chapati-zanzibari',
-    title: 'Chapati Zanzibar: Flaky Swahili Flatbread',
-    description: 'Chapati Zanzibari is a flaky Swahili flatbread made by oiling, coiling and pan-cooking dough; this recipe makes 8 in 85 minutes.',
-    answer: 'Chapati Zanzibari is a soft, flaky Swahili flatbread made by brushing rolled dough with oil, coiling it, then rolling and pan-cooking it into layers. This recipe makes 8 chapatis in about 1 hour 25 minutes.',
+    title: 'Chapati Zanzibari Recipe',
+    cuisine: 'Swahili',
+    dishType: 'Flatbread',
+    description: 'Chapati Zanzibari is a flaky Swahili flatbread from Zanzibar. Coiling and resting the dough creates layers. Makes 8 chapatis in 1 hour 20 minutes.',
+    answer: 'Chapati Zanzibari is a Swahili flatbread from Zanzibar. Each round is brushed with ghee or coconut oil, rolled into a rope and coiled. After a second rest, the coils are rolled flat and cooked on a skillet. This recipe makes 8 chapatis in 1 hour 20 minutes.',
     faqs: [
-      { question: 'What is chapati Zanzibar?', answer: 'It is a layered Swahili-coast flatbread related to Indian paratha, with soft sheets inside and a pan-browned exterior.' },
-      { question: 'How is chapati Zanzibari made?', answer: 'Knead and rest the dough, roll and oil each round, coil it into a spiral, roll again and pan-cook until layered and golden.' },
+      { question: 'What makes Zanzibar chapati flaky?', answer: 'Fat separates the thin sheets of dough as they coil. Resting the coils before rolling them out helps preserve the layers.' },
+      { question: 'When do you clap the chapatis?', answer: 'Just after each chapati comes off the skillet, press it lightly from the sides to separate its warm layers.' },
     ],
   },
   12: {
-    slug: 'karantita',
-    title: 'Karantita: Algerian Chickpea-Flour Flan',
-    description: 'Karantita is an Algerian chickpea-flour flan baked at 230°C for 30–35 minutes and served warm with cumin and harissa.',
-    answer: 'Karantita is an Algerian chickpea-flour flan with a custardy centre and browned top, served warm with cumin and harissa. The rested batter bakes in a hot oiled pan at 230°C for 30–35 minutes.',
+    title: 'Karantita Chickpea Flan',
+    cuisine: 'Algerian',
+    dishType: 'Savoury flan',
+    description: 'Karantita is an Algerian chickpea-flour flan. This egg-and-milk batter bakes at 200°C (400°F) and finishes under the broiler for a browned crust.',
+    answer: 'Karantita is an Algerian chickpea-flour flan with a custardy centre and a browned top. In this version, milk and egg enrich the batter. Bake it at 200°C (400°F) and use the broiler for the final browning. The pan serves eight.',
     faqs: [
-      { question: 'What is karantita?', answer: 'Karantita is a savoury Algerian flan made from chickpea flour, water and oil, with a set centre and crisp, browned edges.' },
-      { question: 'How do you make karantita?', answer: 'Whisk and rest the chickpea batter, pour it into a hot oiled pan and bake at 230°C for 30–35 minutes until golden and just set.' },
+      { question: 'How is karantita baked?', answer: 'Rest the batter for 15 minutes, stir it, then pour it into a greased dish. Bake at 200°C (400°F) for 30–35 minutes and broil for the final 5 minutes to brown the top.' },
+      { question: 'How is karantita served?', answer: 'Dust the top with cumin, let it cool for 5 minutes, then tuck a hot slice inside a baguette spread with harissa.' },
     ],
   },
   13: {
-    slug: 'mahjouba-semolina-crepe',
-    title: 'Mahjouba: Algerian Semolina Crêpes + Filling',
-    description: 'Mahjouba is an Algerian semolina crêpe folded around tomato-onion confit; this recipe makes 8 parcels in about 2¼ hours.',
-    answer: 'Mahjouba is an Algerian semolina crêpe folded around a slow-cooked tomato-and-onion filling and cooked on a hot griddle. This recipe makes 8 parcels in about 2 hours 15 minutes.',
+    title: 'Mahjouba Algerian Crêpes Recipe',
+    cuisine: 'Algerian',
+    dishType: 'Stuffed crêpe',
+    description: 'Mahjouba is an Algerian semolina crêpe folded around onion, tomato and harissa. The dough rests for 30 minutes. Makes 8 parcels in 1 hour 30 minutes.',
+    answer: 'Mahjouba is an Algerian griddled crêpe. A thin sheet of semolina dough folds into a square around caramelized onions, tomato and harissa. This recipe makes eight parcels in 1 hour 30 minutes, including a 30-minute dough rest.',
     faqs: [
-      { question: 'What is mahjouba?', answer: 'Mahjouba is an Algerian street-food crêpe made with semolina and folded into a square around tomato, onion and chilli confit.' },
-      { question: 'How do you make mahjouba?', answer: 'Rest the semolina dough for 1 hour, cook the tomato-onion confit for 25–30 minutes, then stretch, fill, fold and griddle the parcels.' },
+      { question: 'Why cool the mahjouba filling?', answer: 'Cook the onions for 15 minutes, simmer them with the tomato and harissa until the mixture is thick, then let it cool completely. A wet or hot filling can tear the thin dough.' },
+      { question: 'How do you shape mahjouba?', answer: 'Rest the oiled dough balls for 30 minutes. Stretch each one until translucent, fold around the cooled filling, then cook the square on a lightly oiled griddle.' },
     ],
   },
   15: {
-    slug: 'snail-babbouche-broth',
-    title: 'Babbouche: Moroccan Snail Broth with Herbs',
-    description: 'Babbouche is a Moroccan snail broth simmered for 1 hour with herbs and spices, then rested for 10 minutes before serving.',
-    answer: 'Babbouche is a Moroccan street-food broth of food-grade snails simmered with aromatic herbs and spices. The pot simmers gently for 1 hour, then rests off the heat for 10 minutes before serving.',
+    title: 'Babbouche Moroccan Snail Broth',
+    cuisine: 'Moroccan',
+    dishType: 'Broth',
+    description: 'Babbouche is a Moroccan broth of edible land snails with orange peel, thyme and mint. The archive records a two-hour simmer.',
+    answer: 'Babbouche, also called ghoulal, is Moroccan street food made with food-grade land snails and a fragrant broth. Orange peel, thyme and mint are among the aromatics in this version. The archive records a two-hour simmer and a yield of six small bowls.',
+    methodHold: {
+      message: 'The ingredient list specifies dried wormwood. We are verifying its suitability for this broth before publishing quantities and cooking instructions.',
+      source: 'U.S. food-flavouring standard for wormwood',
+      url: 'https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-172/subpart-F/section-172.510',
+    },
     faqs: [
-      { question: 'What is babbouche?', answer: 'Babbouche is a Moroccan snail soup or broth, seasoned with a concentrated blend of herbs and spices and served in small bowls.' },
-      { question: 'How is babbouche made?', answer: 'Food-grade snails simmer with water, onion, garlic, herbs and spices for 1 hour, then rest in the broth for 10 minutes.' },
+      { question: 'What is babbouche?', answer: 'It is a Moroccan dish served with both the edible land snails and the warm, spiced liquid they cooked in.' },
+      { question: 'How is babbouche eaten?', answer: 'The snails are lifted from their shells with a toothpick and the broth is sipped from the bowl.' },
     ],
   },
   16: {
-    slug: 'amlou',
-    title: 'Msemen Amlou: Flatbread + Almond-Argan Dip',
-    description: 'Msemen with amlou pairs flaky Moroccan flatbread with almond, argan-oil and honey dip; the amlou takes about 25 minutes.',
-    answer: 'Msemen with amlou pairs flaky, square-folded Moroccan flatbread with a dip of roasted almonds, argan oil and honey. The amlou takes about 25 minutes: roast the almonds, grind them into a flowing butter, then blend in the argan oil and honey.',
+    title: 'Msemen Amlou Recipe',
+    cuisine: 'Moroccan',
+    dishType: 'Flatbread and dip',
+    description: 'Moroccan msemen with amlou pairs flaky, square-folded flatbread with roasted almond, culinary argan oil and honey dip. Makes 8 msemen and 1 cup of amlou.',
+    answer: 'Msemen with amlou is a Moroccan breakfast pairing. Warm squares of layered semolina flatbread are dipped in roasted almonds ground with culinary argan oil and honey. The full recipe takes 1 hour 40 minutes and makes eight msemen plus one cup of amlou.',
     faqs: [
-      { question: 'What is msemen amlou?', answer: 'It is a Moroccan breakfast pairing of warm, layered msemen flatbread with sweet almond, argan-oil and honey dip.' },
-      { question: 'How is amlou made?', answer: 'Roast the almonds for 12–15 minutes, grind them for 8–12 minutes until flowing and glossy, then work in argan oil and honey.' },
+      { question: 'How are the layers in msemen made?', answer: 'Stretch the rested dough thin, brush with butter and oil, and sprinkle with semolina. Fold in thirds twice, rest the squares, flatten and cook in a skillet.' },
+      { question: 'Which oil goes into amlou?', answer: 'Use culinary toasted argan oil. Blend it with roasted, cooled almonds, honey and a pinch of salt until the dip is creamy and pourable.' },
     ],
   },
   25: {
-    slug: 'mombar-rice-sausage',
-    title: 'Mombar: Egyptian Rice Sausage + How It’s Made',
-    description: 'Mombar is an Egyptian sausage of casings filled with herbed rice, simmered for 60–75 minutes and optionally fried golden.',
-    answer: 'Mombar is an Egyptian rice sausage made by filling cleaned lamb or beef casings with herbed, spiced rice. The links simmer gently for 60–75 minutes until the rice is tender, then can be fried or griddled golden.',
+    title: 'Mombar Recipe — Rice Sausage',
+    cuisine: 'Egyptian',
+    dishType: 'Stuffed casings',
+    description: 'Mombar is Egyptian rice sausage. Loosely stuffed sheep casings simmer for 35–40 minutes, then are drained, dried and deep-fried for 5–6 minutes.',
+    answer: 'Mombar is an Egyptian dish of casings filled with spiced rice, tomato and fresh herbs. Here, sheep casings are stuffed loosely so the rice has room to expand. The links simmer for 35–40 minutes, then are drained, dried and deep-fried for 5–6 minutes.',
     faqs: [
-      { question: 'What is mombar?', answer: 'Mombar is an Egyptian dish of sausage casings packed with rice, herbs and spices, cooked until the filling is tender and sliceable.' },
-      { question: 'How do you make mombar?', answer: 'Fill the casings only two-thirds full, prick the links, simmer gently for 60–75 minutes and finish them in a pan if you want a golden casing.' },
+      { question: 'What goes into mombar?', answer: 'The filling combines raw Egyptian rice with tomato purée, onion, garlic, dill, parsley, cilantro, cumin and coriander.' },
+      { question: 'How does mombar get its crisp casing?', answer: 'Simmer the loosely filled links for 35–40 minutes until the rice is tender. Drain and dry them completely before deep-frying at 190°C (375°F) for 5–6 minutes.' },
     ],
   },
   49: {
-    slug: 'bakoula-mallow-stew',
-    title: 'Bakoula: Moroccan Mallow Greens with Garlic',
-    description: 'Bakoula is a Moroccan mallow-greens dish cooked with garlic and spices for 30–35 minutes until dark, soft and silky.',
-    answer: 'Bakoula is a Moroccan cooked mallow-greens dish with garlic, paprika, cumin and preserved lemon. The greens simmer covered for 30–35 minutes until dark, soft and silky.',
+    title: 'Bakoula Recipe — Mallow Salad',
+    cuisine: 'Moroccan',
+    dishType: 'Cooked salad',
+    description: 'Bakoula is a Moroccan cooked mallow salad. The greens are steamed, chopped and mashed with garlic and spices, then mixed with preserved lemon and olives.',
+    answer: 'Bakoula is a Moroccan cooked greens salad. Mallow leaves are steamed until tender, then drained, chopped and mashed in a skillet with garlic and spices until the moisture evaporates. Preserved lemon, olives and lemon juice finish the dish.',
     faqs: [
-      { question: 'What is bakoula?', answer: 'Bakoula is a Moroccan preparation of mallow or mixed greens cooked down with garlic, spices and preserved lemon.' },
-      { question: 'How do you make bakoula?', answer: 'Build an onion, garlic and spice base, add the greens and preserved lemon, then simmer covered for 30–35 minutes until the leaves crush to silk.' },
+      { question: 'Which greens can you use for bakoula?', answer: 'Use positively identified, food-safe common mallow or the recipe’s alternative of spinach mixed with chard.' },
+      { question: 'How long do the greens cook?', answer: 'Steam or wilt the leaves for 15–20 minutes, then drain and chop them. Stir and mash with the garlic, herbs, spices and oil for another 15–20 minutes. Serve warm or at room temperature.' },
     ],
   },
   56: {
-    slug: 'dfina-sabbath-stew',
-    title: 'Dfina: Moroccan Jewish Overnight Sabbath Stew',
-    description: 'Dfina is a Moroccan Jewish Sabbath stew of beef, chickpeas, wheat and eggs cooked overnight for 10–12 hours.',
-    answer: 'Dfina is a Moroccan Jewish Sabbath stew of beef, chickpeas, wheat berries and shell-on eggs assembled before sundown. It cooks sealed and untouched overnight for 10–12 hours.',
+    title: 'Dfina Moroccan Jewish Stew',
+    cuisine: 'Moroccan Jewish',
+    dishType: 'Stew',
+    description: 'Dfina is a Moroccan Jewish Sabbath stew of beef, chickpeas, potatoes, grain and shell-on eggs, traditionally prepared for the Sabbath midday meal.',
+    answer: 'Dfina is a Moroccan Jewish Sabbath stew related to skhina and dafina. This version combines beef, chickpeas, potatoes, a parcel of wheat berries or barley, and shell-on eggs. The archive records an overnight cooking period of 12–16 hours.',
+    methodHold: {
+      message: 'We are reviewing the overnight oven method and temperature checks for this pot. Cooking instructions are withheld until that review is complete.',
+      source: 'USDA guidance on conventional oven temperatures',
+      url: 'https://ask.fsis.usda.gov/article/What-is-the-lowest-temperature-you-can-set-the-oven-to-for-and-safely-cook-food',
+    },
     faqs: [
-      { question: 'What is dfina?', answer: 'Dfina is the Moroccan form of Sephardic hamin: an overnight Sabbath pot containing beef, legumes, grains and eggs.' },
-      { question: 'How do you make dfina?', answer: 'Assemble and season everything on Friday, seal the heavy pot and cook it at 100°C for 10–12 hours without opening it.' },
+      { question: 'Which grain is used in dfina?', answer: 'This version uses wheat berries or barley, held in a loose cheesecloth parcel so the grains can be served separately.' },
+      { question: 'What gives dfina its characteristic eggs?', answer: 'Whole eggs are traditionally included in their shells and take on a brown colour during the long cooking period. They are peeled for serving.' },
     ],
   },
   63: {
-    slug: 'pkaila-spinach-beans',
-    title: 'Pkaila: Sephardic Spinach, Beef & Bean Stew',
-    description: 'Pkaila is a Sephardic spinach-and-bean stew whose greens are fried for 20 minutes into a dark paste before simmering.',
-    answer: 'Pkaila is a Sephardic spinach-and-bean stew with a deep, concentrated flavour created by frying the greens well beyond wilting. The spinach cooks for 20 minutes into a dark paste before the cakes and beans go into the stew.',
+    title: 'Pkaila Tunisian Jewish Stew',
+    cuisine: 'Tunisian Jewish',
+    dishType: 'Stew',
+    description: 'Pkaila is a Tunisian Jewish beef and white bean stew. Spinach or chard cooks slowly in oil for 1½–2½ hours to make its dark green concentrate.',
+    answer: 'Pkaila is a Tunisian Jewish beef and white bean stew named for its dark greens concentrate. Finely chopped spinach or chard cooks in oil for 1½–2½ hours until nearly black-green. The concentrate then simmers with browned beef and white beans for 2–2½ hours.',
     faqs: [
-      { question: 'What is pkaila?', answer: 'Pkaila is a Sephardic greens stew made with spinach concentrated by long frying, white beans and, in this recipe, a little meat.' },
-      { question: 'How do you make pkaila?', answer: 'Fry the spinach for 20 minutes until dark and pastelike, form and crust small cakes, then simmer them with the beans and sauce.' },
+      { question: 'How does pkaila get its dark colour?', answer: 'Cook the finely chopped, dried greens in oil over low heat for 1½–2½ hours, stirring often. The leaves lose their moisture and become a dark paste without scorching.' },
+      { question: 'When are the beef and beans added?', answer: 'Brown the beef in some of the reserved oil. Add the prepared white beans, concentrate, aromatics and water, then simmer gently for 2–2½ hours until the beef and beans are tender.' },
     ],
   },
   75: {
-    slug: 'tbikha',
-    title: 'Tbikha: Sephardic Vegetable Stew + How It’s Made',
-    description: 'Tbikha is a Sephardic vegetable stew with potatoes, carrots and chickpeas, ready in about 1 hour 10 minutes.',
-    answer: 'Tbikha is a flexible Sephardic vegetable stew built on tomato, garlic and warm spices, with potatoes, carrots and chickpeas in this version. It takes about 1 hour 10 minutes from start to finish.',
+    title: 'Tbikha Algerian Spring Stew',
+    cuisine: 'Algerian',
+    dishType: 'Vegetable stew',
+    description: 'Tbikha Algéroise is an Algerian spring stew of artichoke hearts, peas and split fava beans in a garlic, tomato and paprika sauce.',
+    answer: 'Tbikha Algéroise is an Algerian spring vegetable stew. This version cooks artichoke hearts, green peas and split fava beans together in a shallow sauce of garlic, tomato paste, paprika and cayenne. It serves six.',
     faqs: [
-      { question: 'What is tbikha?', answer: 'Tbikha is a Sephardic weekday vegetable stew: a fixed tomato-and-spice base adapted to the vegetables on hand.' },
-      { question: 'How do you make tbikha?', answer: 'Cook the tomato-and-spice base, simmer the root vegetables and chickpeas for 20 minutes, then add the softer vegetables and finish cooking.' },
+      { question: 'Which vegetables go into tbikha?', answer: 'This Algiers spring version uses artichoke hearts, green peas and shelled split fava beans. The vegetables can vary with the season.' },
+      { question: 'How is the sauce made?', answer: 'Warm garlic, tomato paste, paprika, cayenne and coriander in olive oil. Add the vegetables and water, then cover and simmer for 20–25 minutes until tender and the sauce has reduced.' },
     ],
   },
 }

@@ -1,3 +1,4 @@
+import type { AnswerLedRecipe } from './answer-led'
 import type { Recipe } from './recipes'
 import type { RecipeDetail } from './recipe-details'
 
@@ -25,7 +26,7 @@ export function parseIsoDuration(text: string): string | undefined {
   return out
 }
 
-export function buildRecipeJsonLd(recipe: Recipe, detail: RecipeDetail) {
+export function buildRecipeJsonLd(recipe: Recipe, detail: RecipeDetail, edition?: AnswerLedRecipe) {
   const ingredientLines: string[] = []
   for (const entry of detail.ingredients) {
     if (entry.type === 'item') {
@@ -33,7 +34,9 @@ export function buildRecipeJsonLd(recipe: Recipe, detail: RecipeDetail) {
     }
   }
 
-  const totalTime = parseIsoDuration(detail.timeText)
+  // A range or a duration excluding resting/soaking is not an exact total.
+  const exactDuration = /^(?:\d+ hours?(?: \d+ minutes?)?|\d+ minutes?)$/i
+  const totalTime = !edition || exactDuration.test(detail.timeText) ? parseIsoDuration(detail.timeText) : undefined
 
   const url = recipeUrl(recipe.id)
 
@@ -44,10 +47,10 @@ export function buildRecipeJsonLd(recipe: Recipe, detail: RecipeDetail) {
         '@type': 'Recipe',
         '@id': `${url}#recipe`,
         name: recipe.name,
-        description: detail.originStatus,
+        description: edition?.description ?? detail.originStatus,
         image: [`${SITE_URL}${recipe.image}`],
-        recipeCategory: recipe.category,
-        recipeCuisine: 'North African',
+        recipeCategory: edition?.dishType ?? recipe.category,
+        recipeCuisine: edition?.cuisine ?? 'North African',
         recipeYield: detail.yieldText,
         ...(totalTime ? { totalTime } : {}),
         recipeIngredient: ingredientLines,

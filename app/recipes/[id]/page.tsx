@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { AnswerLedArticle } from '@/components/recipe-detail/answer-led-article'
+import { ANSWER_LED_RECIPES } from '@/lib/answer-led'
 import { RECIPES } from '@/lib/recipes'
 import { getRecipeDetail } from '@/lib/recipe-details'
 import { getPacket } from '@/lib/packet-bundle';
@@ -74,6 +76,23 @@ export default async function RecipeDetailPage({
   const detail = getRecipeDetail(Number(id))
 
   if (!recipe || !detail) notFound()
+
+  // These reviewed IDs have a different formulation in the legacy packet bundle.
+  // Select the canonical source before rendering any instructions or structured data.
+  const edition = ANSWER_LED_RECIPES[recipe.id]
+  if (edition) {
+    return (
+      <>
+        <DetailNav />
+        <main id="main-content" className="relative min-h-screen">
+          <div className="mx-auto max-w-3xl px-5 py-10 md:px-8">
+            <AnswerLedArticle recipe={recipe} detail={detail} edition={edition} />
+          </div>
+        </main>
+        <SiteFooter />
+      </>
+    )
+  }
 
   // Recipe Finalz presentation-packet rollout (markup contract v1)
   const packet = getPacket(id)

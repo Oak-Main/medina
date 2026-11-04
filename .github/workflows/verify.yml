@@ -24,3 +24,5 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm build
+      - name: Compare built dish pages with canonical recipes and visible FAQs
+        run: python3 tests/answer_led.py
