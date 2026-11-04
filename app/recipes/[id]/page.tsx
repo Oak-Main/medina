@@ -38,6 +38,7 @@ export async function generateMetadata({
   const title = recipeSeoTitle(recipe)
   const description = recipeSeoDescription(recipe)
   const url = recipeUrl(recipe.id)
+  const edition = ANSWER_LED_RECIPES[recipe.id]
 
   return {
     title,
@@ -53,7 +54,7 @@ export async function generateMetadata({
       images: [
         {
           url: recipe.image,
-          alt: `${recipe.name}, a ${recipe.category.toLowerCase()} dish from ${recipe.region}`,
+          alt: edition ? `${recipe.name} (${edition.cuisine})` : `${recipe.name}, a ${recipe.category.toLowerCase()} dish from ${recipe.region}`,
         },
       ],
     },

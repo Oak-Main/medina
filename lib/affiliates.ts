@@ -262,6 +262,21 @@ export const EQUIPMENT_PRODUCTS: EquipmentProduct[] = [
 
 export type ShopLink = { id: string; label: string; note: string; url: string }
 
+// These reviewed dishes use the matching catalog items actually called for in
+// their recipe cards. An empty list suppresses generic category suggestions.
+const REVIEWED_SHOP_ITEMS: Partial<Record<number, string[]>> = {
+  11: [], // Skillet flatbread
+  12: ['harissa-paste'],
+  13: ['harissa-paste', 'semolina-flour'],
+  15: [], // Definition only
+  16: ['argan-oil-culinary', 'semolina-flour'],
+  25: ['deep-fry-thermometer'],
+  49: ['preserved-lemons', 'moroccan-olives'],
+  56: [], // Definition only
+  63: [], // Fresh mint in the stew does not call for a tea set.
+  75: [], // Fresh spring vegetables in a wide skillet
+}
+
 export function shopLinksForRecipe(recipe: Recipe, ingredientTexts: string[], max = 4): ShopLink[] {
   if (!isAmazonAffiliateEnabled) return []
 
@@ -271,7 +286,10 @@ export function shopLinksForRecipe(recipe: Recipe, ingredientTexts: string[], ma
   )
   const equipmentMatches = EQUIPMENT_PRODUCTS.filter((p) => p.test(recipe))
 
-  const combined = [...pantryMatches, ...equipmentMatches]
+  const reviewed = REVIEWED_SHOP_ITEMS[recipe.id]
+  const combined = [...pantryMatches, ...equipmentMatches].filter(
+    (product) => !reviewed || reviewed.includes(product.id),
+  )
   const deduped = combined.filter((p, i) => combined.findIndex((q) => q.id === p.id) === i)
 
   return deduped.slice(0, max).map((p) => ({

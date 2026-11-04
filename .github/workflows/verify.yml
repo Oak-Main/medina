@@ -24,5 +24,6 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm build
+      - run: node --test tests/answer-led-shop.mjs
       - name: Compare built dish pages with canonical recipes and visible FAQs
         run: python3 tests/answer_led.py

@@ -120,9 +120,11 @@ class AnswerLed(unittest.TestCase):
         copy = " ".join([brand_title, description, words(intro), words(faq)])
         self.assertNotRegex(copy, re.compile(CASES[recipe_id][2], re.I))
 
+        self.assertEqual(len(article.findall(".//*[@id='provenance-heading']")), 1)
         recipes = [n for n in nodes if n["@type"] == "Recipe"]
         if recipe_id in HOLDS:
             self.assertEqual(recipes, [])
+            self.assertNotIn("Shop this recipe", words(article))
             self.assertEqual(len(article.findall(".//aside[@data-block='method-review']/a")), 1)
             for block in ["method", "recipe-card"]:
                 self.assertIsNone(article.find(f".//*[@data-block='{block}']"))

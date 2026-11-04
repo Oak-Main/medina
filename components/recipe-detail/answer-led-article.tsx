@@ -10,6 +10,8 @@ import { MethodPanel } from './method-panel'
 import { NoteCallout } from './note-callout'
 import { PrintRecipeButton } from './print-button'
 import { SourcesPanel } from './sources-panel'
+import { RecipeProvenance } from './recipe-provenance'
+import { ShopModule } from './shop-module'
 
 export function AnswerLedArticle({
   recipe, detail, edition,
@@ -68,6 +70,8 @@ export function AnswerLedArticle({
         ))}
       </section>
       <SourcesPanel crossRefCodes={detail.crossRefCodes} finalizedSources={detail.finalizedSources} />
+      <RecipeProvenance detail={detail} />
+      {!methodHold && <ShopModule recipe={recipe} detail={detail} />}
       <Link href="/recipes" className="underline">Browse the recipe archive</Link>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
     </article>
