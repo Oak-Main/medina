@@ -1964,7 +1964,7 @@
     ],
     "method": [
       "Stuff: Mix raw rice, onion, garlic, tomato puree, herbs, and spices. Stuff loose and flat into 8-inch casings (do not overstuff).",
-      "Boil: Simmer mombar in rolling salted water (200°F / 93°C) for 35-40 minutes until rice is tender. Drain and dry completely.",
+      "Boil: Simmer mombar in salted water (200°F / 93°C) for 35-40 minutes until rice is tender. Drain and dry completely.",
       "Fry: Heat oil to 375°F (190°C) and deep fry sausages for 5-6 minutes until crispy and dark golden."
     ],
     "noteLabel": "Safety note",
@@ -4849,7 +4849,7 @@
       },
       {
         "type": "item",
-        "text": "1 lb/450 g dried white beans, soaked overnight"
+        "text": "1 lb/450 g dried white beans, soaked overnight, drained and boiled in fresh water according to the bean package before use"
       },
       {
         "type": "item",

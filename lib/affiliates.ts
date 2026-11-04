@@ -262,6 +262,21 @@ export const EQUIPMENT_PRODUCTS: EquipmentProduct[] = [
 
 export type ShopLink = { id: string; label: string; note: string; url: string }
 
+// These lists narrow automatic pantry and equipment matches for reviewed dishes.
+// An empty list suppresses every shop link for that dish.
+const REVIEWED_SHOP_ITEMS: Partial<Record<number, string[]>> = {
+  11: [], // Skillet flatbread
+  12: ['harissa-paste'],
+  13: ['harissa-paste', 'semolina-flour'],
+  15: [], // Definition only
+  16: ['argan-oil-culinary', 'semolina-flour'],
+  25: ['deep-fry-thermometer'],
+  49: ['preserved-lemons', 'moroccan-olives'],
+  56: [], // Definition only
+  63: [], // The fresh mint seasons the stew. Omit the green-tea and spearmint blend.
+  75: [], // The recipe specifies a wide skillet and does not identify the favas as dried.
+}
+
 export function shopLinksForRecipe(recipe: Recipe, ingredientTexts: string[], max = 4): ShopLink[] {
   if (!isAmazonAffiliateEnabled) return []
 
@@ -271,7 +286,10 @@ export function shopLinksForRecipe(recipe: Recipe, ingredientTexts: string[], ma
   )
   const equipmentMatches = EQUIPMENT_PRODUCTS.filter((p) => p.test(recipe))
 
-  const combined = [...pantryMatches, ...equipmentMatches]
+  const reviewed = REVIEWED_SHOP_ITEMS[recipe.id]
+  const combined = [...pantryMatches, ...equipmentMatches].filter(
+    (product) => !reviewed || reviewed.includes(product.id),
+  )
   const deduped = combined.filter((p, i) => combined.findIndex((q) => q.id === p.id) === i)
 
   return deduped.slice(0, max).map((p) => ({
