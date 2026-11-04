@@ -262,8 +262,8 @@ export const EQUIPMENT_PRODUCTS: EquipmentProduct[] = [
 
 export type ShopLink = { id: string; label: string; note: string; url: string }
 
-// These reviewed dishes use the matching catalog items actually called for in
-// their recipe cards. An empty list suppresses generic category suggestions.
+// These lists narrow automatic pantry and equipment matches for reviewed dishes.
+// An empty list suppresses every shop link for that dish.
 const REVIEWED_SHOP_ITEMS: Partial<Record<number, string[]>> = {
   11: [], // Skillet flatbread
   12: ['harissa-paste'],
@@ -273,8 +273,8 @@ const REVIEWED_SHOP_ITEMS: Partial<Record<number, string[]>> = {
   25: ['deep-fry-thermometer'],
   49: ['preserved-lemons', 'moroccan-olives'],
   56: [], // Definition only
-  63: [], // Fresh mint in the stew does not call for a tea set.
-  75: [], // Fresh spring vegetables in a wide skillet
+  63: [], // The fresh mint seasons the stew. Omit the green-tea and spearmint blend.
+  75: [], // The recipe specifies a wide skillet and does not identify the favas as dried.
 }
 
 export function shopLinksForRecipe(recipe: Recipe, ingredientTexts: string[], max = 4): ShopLink[] {
