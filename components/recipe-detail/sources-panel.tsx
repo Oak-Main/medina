@@ -63,7 +63,7 @@ export function SourcesPanel({
                     rel={s.kind === 'book' ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
                     className="group flex items-start gap-2.5 text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
-                    <IconclassName="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                    <Icon className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                     <span className="text-pretty">{s.label}</span>
                   </a>
                 </li>
