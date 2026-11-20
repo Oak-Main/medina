@@ -24,3 +24,17 @@ for (const [id, expected] of Object.entries(expectedItems)) {
     assert.deepEqual(enabled.shopLinksForRecipe(recipe, items).map(link => link.id), expected)
   })
 }
+
+test('book citation links carry the site tracking ID with or without the shop tag', () => {
+  for (const mod of [disabled, enabled]) {
+    const url = new URL(mod.amazonBookUrl('Paula Wolfert The Food of Morocco book'))
+    assert.equal(url.origin + url.pathname, 'https://www.amazon.com/s')
+    assert.equal(url.searchParams.get('k'), 'Paula Wolfert The Food of Morocco book')
+    assert.equal(url.searchParams.get('tag'), 'tasteofmedina-20')
+  }
+})
+
+test('citation tag is not used by the shop module', () => {
+  assert.equal(new URL(disabled.amazonSearchUrl('harissa')).searchParams.get('tag'), null)
+  assert.equal(new URL(enabled.amazonSearchUrl('harissa')).searchParams.get('tag'), 'test-only')
+})
