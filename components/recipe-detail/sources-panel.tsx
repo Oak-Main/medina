@@ -60,10 +60,10 @@ export function SourcesPanel({
                   <a
                     href={s.url}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel={s.kind === 'book' ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
                     className="group flex items-start gap-2.5 text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
-                    <Icon className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                    <IconclassName="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                     <span className="text-pretty">{s.label}</span>
                   </a>
                 </li>

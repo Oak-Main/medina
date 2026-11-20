@@ -15,6 +15,19 @@ export function amazonSearchUrl(query: string, includeAffiliateTag = true): stri
   return `https://www.amazon.com/s?${params.toString()}`
 }
 
+/**
+ * amazon.com (US) Associates tracking ID for tasteofmedina.com, used on the book
+ * citations in the sources panel. Create it in Associates Central before this ships.
+ * The optional shop module still follows NEXT_PUBLIC_AMAZON_ASSOCIATE_TAG.
+ */
+export const BOOK_CITATION_TAG = 'tasteofmedina-20'
+
+/** Amazon search link for a cited book, tagged with BOOK_CITATION_TAG. Render it with rel="sponsored". */
+export function amazonBookUrl(query: string): string {
+  const params = new URLSearchParams({ k: query, tag: BOOK_CITATION_TAG })
+  return `https://www.amazon.com/s?${params.toString()}`
+}
+
 export type ShopProduct = {
   id: string
   label: string
