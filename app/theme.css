@@ -204,7 +204,7 @@
 /* Jump bar: under the fixed header, sideways scroll on narrow screens */
 [data-block="jump-bar"] {
   position: sticky; top: var(--rpc-header-h); z-index: 40; display: flex; align-items: center;
-  gap: .25rem; margin: 1.25rem 0; padding: .5rem .25rem; font-size: .875rem;
+  gap: .25rem; margin: 1.25rem 0; padding: .5rem .25rem; font-size: .875rem; white-space: nowrap;
   overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none;
   background: color-mix(in oklab, var(--background) 92%, transparent);
   -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-block: 1px solid var(--border);
