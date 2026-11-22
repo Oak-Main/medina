@@ -1,0 +1,146 @@
+{
+  "status": "proposed_not_deployed",
+  "baseline_kind": "approval_time_not_ship_time",
+  "recorded_date": "2026-11-22",
+  "captured_at_utc": {
+    "first": "2026-11-22T11:15:56.153Z",
+    "last": "2026-11-22T11:15:56.253Z"
+  },
+  "repository": "Oak-Main/medina",
+  "implementation_base_sha": "57948d47e35803799491edc3cc34f930284468bc",
+  "source": "Authenticated read-only Google Search Console Search Analytics export retained in SUPERDESK_Search_Baselines_2026-11-22.json",
+  "scope": {
+    "search_type": "web",
+    "data_state": "final",
+    "countries": "all",
+    "devices": "all",
+    "current_window": {
+      "start": "2026-10-24",
+      "end": "2026-11-20",
+      "days": 28
+    },
+    "comparison_window": {
+      "start": "2026-09-26",
+      "end": "2026-10-23",
+      "days": 28
+    },
+    "ctr_unit": "fraction (multiply by 100 for percent)",
+    "position": "GSC aggregate average, not a current SERP rank",
+    "page_totals": "Queried separately across all queries; do not substitute them for exact-query clicks"
+  },
+  "measurements": [
+    {
+      "url": "https://www.tasteofmedina.com/recipes/5",
+      "query": "squid sandwich",
+      "query_current": {
+        "keys": [
+          "https://www.tasteofmedina.com/recipes/5",
+          "squid sandwich"
+        ],
+        "clicks": 0,
+        "impressions": 1516,
+        "ctr": 0,
+        "position": 12.20778364116095
+      },
+      "query_previous": {
+        "keys": [
+          "https://www.tasteofmedina.com/recipes/5",
+          "squid sandwich"
+        ],
+        "clicks": 0,
+        "impressions": 4,
+        "ctr": 0,
+        "position": 30
+      },
+      "page_current": {
+        "keys": [
+          "https://www.tasteofmedina.com/recipes/5"
+        ],
+        "clicks": 1,
+        "impressions": 1569,
+        "ctr": 0.0006373486297004461,
+        "position": 12.130656469088592
+      },
+      "page_previous": {
+        "keys": [
+          "https://www.tasteofmedina.com/recipes/5"
+        ],
+        "clicks": 0,
+        "impressions": 73,
+        "ctr": 0,
+        "position": 16.726027397260275
+      }
+    },
+    {
+      "url": "https://www.tasteofmedina.com/recipes/25",
+      "query": "mombar",
+      "query_current": {
+        "keys": [
+          "https://www.tasteofmedina.com/recipes/25",
+          "mombar"
+        ],
+        "clicks": 0,
+        "impressions": 145,
+        "ctr": 0,
+        "position": 9.703448275862069
+      },
+      "query_previous": {
+        "keys": [
+          "https://www.tasteofmedina.com/recipes/25",
+          "mombar"
+        ],
+        "clicks": 0,
+        "impressions": 111,
+        "ctr": 0,
+        "position": 9.333333333333334
+      },
+      "page_current": {
+        "keys": [
+          "https://www.tasteofmedina.com/recipes/25"
+        ],
+        "clicks": 9,
+        "impressions": 1002,
+        "ctr": 0.008982035928143712,
+        "position": 7.973053892215569
+      },
+      "page_previous": {
+        "keys": [
+          "https://www.tasteofmedina.com/recipes/25"
+        ],
+        "clicks": 5,
+        "impressions": 407,
+        "ctr": 0.012285012285012284,
+        "position": 8.181818181818182
+      }
+    }
+  ],
+  "hypotheses": [
+    {
+      "url": "https://www.tasteofmedina.com/recipes/25",
+      "correction": "Withhold unverified nutrition annotations and the associated verified-data claim while preserving the reviewed recipe.",
+      "search_hypothesis": "Removing demonstrably invalid information may improve trust and useful search engagement; no ranking or traffic lift is established.",
+      "primary_search_metric": "Absolute page and relevant Mombar query-cluster clicks, interpreted with comparable exposure and country/device mix.",
+      "technical_acceptance": "No invalid per-100 g values or verified-attribution; ingredient quantities, recipe method, schema and canonical retained."
+    },
+    {
+      "url": "https://www.tasteofmedina.com/recipes/5",
+      "correction": "Align description, Open Graph and Twitter with the existing Madrid-style, four-sandwich, 40-minute recipe.",
+      "search_hypothesis": "Accurate descriptive metadata may improve qualified search engagement; zero scored-query clicks are the baseline, not an expected lift.",
+      "primary_search_metric": "Relevant-query and page clicks/CTR with country, device and query-mix context.",
+      "technical_acceptance": "Exact approved metadata parity, unchanged title/canonical/method, PT40M and four-sandwich structured yield retained."
+    }
+  ],
+  "release": {
+    "deployed_at": null,
+    "deployed_revision": null,
+    "production_revision_at_baseline": null,
+    "release_approved": false,
+    "instruction": "Before a separately approved release, refresh and freeze final GSC windows, relevant country/device cohorts and before-content evidence; record actual production revision and ship timestamp separately from merge time. Preserve this approval-time record."
+  },
+  "review": {
+    "day14": "Directional review using 14 complete post-release days after data settles; compare matching query/country/device scopes and report absolute counts.",
+    "day28": "Review the first complete 28-day post-release window against the immutable ship-time baseline; report clicks, impressions, CTR, position and composition changes.",
+    "sparse_results": "Keep inconclusive if exposure or counts are too small or composition/seasonality confounds comparison. Three to five first relevant clicks is an operational checkpoint, not statistical proof.",
+    "monetization": "No conversion or revenue claim established by these GSC measurements."
+  }
+}
