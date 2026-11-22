@@ -13,6 +13,12 @@ export interface Packet {
   meta: { slug: string };
   skeleton: string;
   jsonld: Record<string, unknown>;
+  /** Optional per-packet Q&A — rendered visibly and as a FAQPage node. Copy
+   * must be grounded in the packet's own text (never invented). */
+  faqs?: { q: string; a: string }[];
+  /** Optional cross-category internal links — fills the composer's empty
+   * related-placeholder div. */
+  related?: { title: string; url: string }[];
 }
 
 export const ORIGIN = 'https://tasteofmedina.com';
@@ -53,8 +59,43 @@ export function renderPacketArticle(packet: Packet, heroSrc: string): string {
   const heroHits = body.split(heroSrc).length - 1;
   if (heroHits !== 2)
     throw new Error(`packet drift: ${packet.meta.slug} expected hero+card twice, got ${heroHits}`);
+  // FAQ section (per-packet, grounded copy) — visible Q&A mirroring the
+  // FAQPage node emitted below.
+  if (packet.faqs?.length) {
+    const esc = (s: string) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const items = packet.faqs
+      .map((f) => `<div class="rpc-faq-item"><h3>${esc(f.q)}</h3><p>${esc(f.a)}</p></div>`)
+      .join('');
+    body = body.replace(
+      '</article>',
+      `<div data-block="faq" id="rpc-faq"><h2>Frequently asked questions</h2>${items}</div></article>`,
+    );
+  }
+  // Related strip — fills the composer's empty placeholder with
+  // cross-category links to the archive's striking-distance pages.
+  if (packet.related?.length) {
+    const esc = (s: string) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    const links = packet.related
+      .map((r) => `<li><a href="${esc(r.url)}">${esc(r.title)}</a></li>`)
+      .join('');
+    body = body.replace(
+      /<div data-block="related" data-rpc="related-placeholder">[\s\S]*?<\/div>/,
+      `<div data-block="related"><h2>From the archive</h2><ul class="rpc-related-list">${links}</ul></div>`,
+    );
+  }
   const ld = `<script type="application/ld+json">${JSON.stringify(
     packetJsonld(packet, heroSrc),
   ).replace(/</g, '\\u003c')}</script>`;
-  return body + ld;
+  const faqLd = packet.faqs?.length
+    ? `<script type="application/ld+json">${JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: packet.faqs.map((f) => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: { '@type': 'Answer', text: f.a },
+        })),
+      }).replace(/</g, '\\u003c')}</script>`
+    : '';
+  return body + ld + faqLd;
 }
