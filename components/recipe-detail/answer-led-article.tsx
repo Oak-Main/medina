@@ -16,7 +16,7 @@ import { ShopModule } from './shop-module'
 export function AnswerLedArticle({
   recipe, detail, edition,
 }: { recipe: Recipe; detail: RecipeDetail; edition: AnswerLedRecipe }) {
-  const { answer, cuisine, dishType, faqs, methodHold } = edition
+  const { answer, cuisine, dishType, faqs, relatedLinks, methodHold } = edition
   const faqPage = {
     '@type': 'FAQPage',
     mainEntity: faqs.map(({ question, answer }) => ({
@@ -69,6 +69,16 @@ export function AnswerLedArticle({
           <details key={question}><summary>{question}</summary><p>{answer}</p></details>
         ))}
       </section>
+      {relatedLinks?.length ? (
+        <section data-block="related" className="rpc-related">
+          <h2>From the archive</h2>
+          <ul>
+            {relatedLinks.map(({ label, href }) => (
+              <li key={href}><Link href={href}>{label}</Link></li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
       <SourcesPanel crossRefCodes={detail.crossRefCodes} finalizedSources={detail.finalizedSources} />
       <RecipeProvenance detail={detail} />
       {!methodHold && <ShopModule recipe={recipe} detail={detail} />}
