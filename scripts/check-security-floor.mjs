@@ -1,13 +1,15 @@
 // Fails if the INSTALLED next or sharp is below the advisory floor.
 // Advisories: GHSA-2464-fhr4-w9xw (Image Optimization API SVG RCE), GHSA-p3m5-59mp-jv5r (Server Actions DoS),
 // GHSA-673q-mjm6-r5xr (`use cache` typed arrays RCE). Read-only: no network, no build, no server.
+// Next 16.4.5 also incorporates the November 2026 security fixes.
+// Release: https://github.com/vercel/next.js/releases/tag/v16.4.5
 // sharp is resolved FROM next's own location, so this checks the copy the framework actually loads.
 import { createRequire } from 'node:module'
 import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const floors = { next: '16.4.1', sharp: '0.35.5' }
+const floors = { next: '16.4.5', sharp: '0.35.5' }
 
 function parse(version) {
   const match = /^(\d+)\.(\d+)\.(\d+)(?:-([0-9A-Za-z.-]+))?/.exec(String(version))
