@@ -1,0 +1,540 @@
+/* ==========================================================================
+   Site polish — ambient light, glass, and motion.
+   Loaded after theme.css. Pure CSS: no markup, copy, asset or dependency
+   changes. Every effect is additive, so the flat theme remains the fallback
+   when a browser lacks backdrop-filter, :has() or mask-image.
+   ========================================================================== */
+
+:root {
+  --polish-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --polish-shadow: 0 26px 60px -34px rgb(0 0 0 / 0.8);
+  --polish-glow: 0 30px 64px -38px color-mix(in oklab, var(--saffron) 55%, transparent);
+}
+
+/* ---- Canvas: warm light from the top corners, a cool edge at the bottom --- */
+body {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(52rem 34rem at 88% -8%, color-mix(in oklab, var(--saffron) 9%, transparent), transparent 70%),
+    radial-gradient(44rem 30rem at 2% 4%, color-mix(in oklab, var(--paprika) 8%, transparent), transparent 68%),
+    radial-gradient(40rem 30rem at 100% 100%, color-mix(in oklab, var(--saffron) 4%, transparent), transparent 70%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--saffron) 82%, transparent);
+  color: var(--primary-foreground);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--saffron) 32%, var(--border)) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid var(--background);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--saffron) 32%, var(--border));
+}
+
+/* ---- Typography: slightly heavier display cuts, tidier ragging ------------- */
+body {
+  -webkit-font-smoothing: antialiased;
+  font-optical-sizing: auto;
+}
+
+main h1,
+main h2,
+footer h2 {
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+p,
+li {
+  text-wrap: pretty;
+}
+
+/* ---- Chrome: frosted header, lit logo, underlined nav ---------------------- */
+/* The scrim runs 2.5rem past the bar and fades out, so there is no seam
+   where the header ends over a photograph. */
+header.fixed {
+  background-color: transparent;
+}
+
+header.fixed::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 -3.5rem;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--background) 94%, transparent) 0,
+    transparent 100%
+  );
+  -webkit-backdrop-filter: blur(18px) saturate(1.15);
+  backdrop-filter: blur(18px) saturate(1.15);
+  -webkit-mask-image: linear-gradient(180deg, #000, transparent);
+  mask-image: linear-gradient(180deg, #000, transparent);
+}
+
+header a[href="/"] > span:first-child {
+  transition:
+    transform 0.5s var(--polish-ease),
+    border-color 0.4s,
+    box-shadow 0.4s;
+}
+
+header a[href="/"]:hover > span:first-child,
+header a[href="/"]:focus-visible > span:first-child {
+  transform: rotate(90deg);
+  border-color: color-mix(in oklab, var(--saffron) 75%, transparent);
+  box-shadow: 0 0 26px -6px color-mix(in oklab, var(--saffron) 65%, transparent);
+}
+
+header a[href="/"] span span {
+  letter-spacing: 0.28em;
+}
+
+header nav a {
+  transition:
+    color 0.25s,
+    border-color 0.25s,
+    box-shadow 0.3s;
+}
+
+header nav a:hover,
+header nav a:focus-visible {
+  color: var(--saffron);
+}
+
+header nav a[class~="rounded-full"]:hover,
+header nav a[class~="rounded-full"]:focus-visible {
+  border-color: color-mix(in oklab, var(--saffron) 45%, var(--border));
+  box-shadow: 0 10px 30px -18px color-mix(in oklab, var(--saffron) 60%, transparent);
+}
+
+header input[type="search"] {
+  transition:
+    box-shadow 0.3s,
+    border-color 0.3s,
+    background-color 0.3s,
+    width 0.3s;
+}
+
+header input[type="search"]:focus {
+  border-color: color-mix(in oklab, var(--saffron) 55%, transparent);
+  box-shadow: 0 0 30px -6px color-mix(in oklab, var(--saffron) 55%, transparent);
+}
+
+/* ---- Hero: a saffron wash behind the headline, light on the CTA ----------- */
+#top {
+  isolation: isolate;
+}
+
+#top::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(34rem 26rem at 16% 42%, color-mix(in oklab, var(--saffron) 12%, transparent), transparent 68%),
+    radial-gradient(28rem 22rem at 4% 88%, color-mix(in oklab, var(--paprika) 12%, transparent), transparent 70%);
+}
+
+#top h1 span {
+  text-shadow: 0 0 70px color-mix(in oklab, var(--saffron) 30%, transparent);
+}
+
+#top a[href="/recipes"] {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 18px 44px -20px color-mix(in oklab, var(--saffron) 65%, transparent);
+  transition:
+    transform 0.3s var(--polish-ease),
+    box-shadow 0.35s;
+}
+
+#top a[href="/recipes"]:hover,
+#top a[href="/recipes"]:focus-visible {
+  box-shadow: 0 22px 54px -18px color-mix(in oklab, var(--saffron) 80%, transparent);
+}
+
+#top a[href="/recipes"]::after {
+  content: "";
+  position: absolute;
+  top: -60%;
+  bottom: -60%;
+  left: -30%;
+  width: 30%;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    color-mix(in oklab, var(--foreground) 55%, transparent),
+    transparent
+  );
+  transform: translateX(-140%) skewX(-12deg);
+  transition: transform 0.8s var(--polish-ease);
+}
+
+#top a[href="/recipes"]:hover::after,
+#top a[href="/recipes"]:focus-visible::after {
+  transform: translateX(520%) skewX(-12deg);
+}
+
+#top figure {
+  transition:
+    border-color 0.4s,
+    box-shadow 0.45s;
+}
+
+#top figure:hover,
+#top figure:focus-within {
+  border-color: color-mix(in oklab, var(--saffron) 40%, var(--border));
+  box-shadow: 0 28px 60px -36px color-mix(in oklab, var(--saffron) 55%, transparent);
+}
+
+/* The image column was 6rem taller than the viewport because the section's
+   top padding pushed it down; pull it up so it bleeds to the top edge and the
+   archive note stays inside the fold. */
+@media (min-width: 1024px) {
+  #top > div:last-child {
+    height: 100vh;
+    margin-top: -6rem;
+  }
+
+  #top > div:last-child::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    z-index: 1;
+    width: 6rem;
+    pointer-events: none;
+    background: linear-gradient(90deg, var(--background), transparent);
+  }
+}
+
+/* ---- Sections and cards: hover lift already exists; add the light --------- */
+main > section:has(article) {
+  isolation: isolate;
+}
+
+main > section:has(article)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    60rem 30rem at 50% 0%,
+    color-mix(in oklab, var(--saffron) 7%, transparent),
+    transparent 70%
+  );
+}
+
+main a[href^="/recipes/"]:has(> div img) {
+  background-image: linear-gradient(
+    165deg,
+    color-mix(in oklab, var(--card) 88%, var(--foreground) 4%),
+    var(--card) 46%
+  );
+  box-shadow: inset 0 1px 0 0 color-mix(in oklab, var(--foreground) 7%, transparent);
+  transition:
+    transform 0.35s var(--polish-ease),
+    border-color 0.4s,
+    box-shadow 0.45s,
+    background-color 0.4s;
+}
+
+main a[href^="/recipes/"]:has(> div img):hover,
+main a[href^="/recipes/"]:has(> div img):focus-visible {
+  border-color: color-mix(in oklab, var(--saffron) 38%, var(--border));
+  box-shadow:
+    inset 0 1px 0 0 color-mix(in oklab, var(--saffron) 28%, transparent),
+    var(--polish-glow),
+    0 18px 40px -26px rgb(0 0 0 / 0.75);
+}
+
+main a[href^="/recipes/"]:has(> div img) img {
+  filter: saturate(1.04) contrast(1.02);
+  transition:
+    transform 0.8s var(--polish-ease),
+    filter 0.45s;
+}
+
+main a[href^="/recipes/"]:has(> div img):hover img,
+main a[href^="/recipes/"]:has(> div img):focus-visible img {
+  filter: saturate(1.1) contrast(1.03) brightness(1.04);
+}
+
+main a[href^="/recipes/"]:has(> div img) svg.lucide-arrow-up-right {
+  transition: transform 0.3s var(--polish-ease);
+}
+
+main a[href^="/recipes/"]:has(> div img):hover svg.lucide-arrow-up-right,
+main a[href^="/recipes/"]:has(> div img):focus-visible svg.lucide-arrow-up-right {
+  transform: translate(2px, -2px);
+}
+
+main a[href^="/recipes/"]:has(> div img):hover svg.lucide-flame {
+  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--accent) 70%, transparent));
+}
+
+main a[href^="/recipes/"]:has(> div img)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--foreground) 5%, transparent),
+    transparent 20%
+  );
+  opacity: 0.8;
+  transition: opacity 0.4s;
+}
+
+main a[href^="/recipes/"]:has(> div img):hover::after,
+main a[href^="/recipes/"]:has(> div img):focus-visible::after {
+  opacity: 1;
+}
+
+main > section:has(article) article {
+  transition:
+    border-color 0.45s,
+    box-shadow 0.45s;
+}
+
+main > section:has(article) a:has(article):hover article,
+main > section:has(article) a:has(article):focus-visible article {
+  border-color: color-mix(in oklab, var(--saffron) 40%, var(--border));
+  box-shadow:
+    0 40px 90px -50px color-mix(in oklab, var(--saffron) 60%, transparent),
+    0 30px 60px -40px rgb(0 0 0 / 0.9);
+}
+
+/* ---- Pills, chips and filters --------------------------------------------- */
+button[aria-pressed] {
+  transition:
+    color 0.25s,
+    background-color 0.25s,
+    border-color 0.25s,
+    box-shadow 0.3s;
+}
+
+button[aria-pressed="true"] {
+  box-shadow: 0 12px 30px -14px color-mix(in oklab, var(--saffron) 65%, transparent);
+}
+
+button[aria-pressed="false"]:hover {
+  box-shadow: 0 10px 26px -18px color-mix(in oklab, var(--saffron) 55%, transparent);
+}
+
+a[class~="rounded-full"] {
+  transition:
+    color 0.25s,
+    background-color 0.25s,
+    border-color 0.25s,
+    box-shadow 0.3s,
+    transform 0.25s;
+}
+
+a[class~="rounded-full"]:hover {
+  box-shadow: 0 14px 34px -20px color-mix(in oklab, var(--saffron) 60%, transparent);
+}
+
+/* ---- Recipe pages: lit plate, warmer method, softer card ------------------ */
+.rpc-container h1::before {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 2px;
+  margin-bottom: 1.1rem;
+  background: var(--saffron);
+  box-shadow: 0 0 18px color-mix(in oklab, var(--saffron) 55%, transparent);
+}
+
+[data-block="hero"] {
+  position: relative;
+  isolation: isolate;
+}
+
+[data-block="hero"]::before {
+  content: "";
+  position: absolute;
+  inset: -1.5rem -1.5rem auto;
+  height: 70%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    60% 60% at 50% 20%,
+    color-mix(in oklab, var(--saffron) 10%, transparent),
+    transparent 70%
+  );
+}
+
+[data-block="hero"] img {
+  max-height: min(70vh, 34rem);
+  box-shadow: 0 36px 80px -48px rgb(0 0 0 / 0.95);
+  transition: filter 0.4s;
+}
+
+[data-block="hero"] img:hover {
+  filter: saturate(1.05) brightness(1.03);
+}
+
+[data-block="jump-bar"] > a,
+[data-block="jump-bar"] > button:not([class]) {
+  border-radius: 0.375rem;
+  transition:
+    color 0.2s,
+    background-color 0.2s,
+    border-color 0.2s;
+}
+
+[data-block="jump-bar"] > a:hover,
+[data-block="jump-bar"] > a:focus-visible,
+[data-block="jump-bar"] > button:not([class]):hover,
+[data-block="jump-bar"] > button:not([class]):focus-visible {
+  background: color-mix(in oklab, var(--saffron) 10%, transparent);
+}
+
+@media (max-width: 640px) {
+  [data-block="jump-bar"] {
+    -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 2.25rem), transparent);
+    mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 2.25rem), transparent);
+  }
+}
+
+[data-block="step"] {
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  transition:
+    background-color 0.35s,
+    border-color 0.35s;
+}
+
+[data-block="step"]:hover {
+  border-left-color: var(--saffron);
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--saffron) 7%, transparent),
+    transparent 45%
+  );
+}
+
+.rpc-card {
+  background-image: linear-gradient(
+    170deg,
+    color-mix(in oklab, var(--card) 92%, var(--foreground) 3%),
+    var(--card) 40%
+  );
+  box-shadow:
+    inset 0 1px 0 0 color-mix(in oklab, var(--foreground) 6%, transparent),
+    0 34px 80px -56px rgb(0 0 0 / 0.95);
+  transition:
+    border-color 0.4s,
+    box-shadow 0.4s;
+}
+
+.rpc-card:hover {
+  border-color: color-mix(in oklab, var(--saffron) 22%, var(--border));
+}
+
+.rpc-faq summary {
+  border-radius: var(--radius-sm);
+  transition:
+    color 0.25s,
+    background-color 0.25s;
+}
+
+.rpc-faq summary:hover {
+  color: var(--saffron);
+  background: color-mix(in oklab, var(--saffron) 6%, transparent);
+}
+
+[data-block="notes"] > div,
+[data-block="method-review"] {
+  transition:
+    border-color 0.35s,
+    box-shadow 0.35s;
+}
+
+[data-block="notes"] > div:hover {
+  border-color: color-mix(in oklab, var(--saffron) 25%, var(--border));
+}
+
+[data-block="troubleshooting"] tbody tr {
+  transition: background-color 0.2s;
+}
+
+[data-block="troubleshooting"] tbody tr:hover {
+  background: color-mix(in oklab, var(--card) 70%, transparent);
+}
+
+/* ---- Footer: a low sun behind the closing line ---------------------------- */
+footer {
+  isolation: isolate;
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 22rem;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    50% 100% at 50% 0%,
+    color-mix(in oklab, var(--saffron) 8%, transparent),
+    transparent 70%
+  );
+}
+
+footer a {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  transition:
+    color 0.25s,
+    text-decoration-color 0.25s;
+}
+
+footer a:hover,
+footer a:focus-visible {
+  text-decoration-color: currentColor;
+}
+
+/* ---- Motion and print ------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  #top a[href="/recipes"]::after {
+    display: none;
+  }
+}
+
+@media print {
+  body {
+    background: #fff !important;
+  }
+
+  header.fixed::before,
+  #top::before,
+  main > section:has(article)::before,
+  footer::before {
+    display: none !important;
+  }
+
+  main a[href^="/recipes/"]:has(> div img)::after {
+    display: none !important;
+  }
+}
