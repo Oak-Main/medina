@@ -37,11 +37,20 @@ export type RecipeDetail = {
 // undefined and render nothing — never invented numbers. No runtime API
 // calls; refresh with:
 //   DICTIONARY_PATH=<updated bundle> node scripts/build-nutrition.mjs
+// Mombar's ingredient mappings contain invalid per-100 g values. Withhold
+// all nutrition on this recipe until those mappings have been verified.
+const NUTRITION_REVIEW_RECIPE_IDS = new Set([25])
+
 export const RECIPE_DETAILS: RecipeDetail[] = (raw as RecipeDetail[]).map((detail) => ({
   ...detail,
   ingredients: detail.ingredients.map((entry) =>
     entry.type === 'item'
-      ? { ...entry, nutrition: nutritionForIngredientText(entry.text) ?? undefined }
+      ? {
+          ...entry,
+          nutrition: NUTRITION_REVIEW_RECIPE_IDS.has(detail.id)
+            ? undefined
+            : nutritionForIngredientText(entry.text) ?? undefined,
+        }
       : entry,
   ),
 }))

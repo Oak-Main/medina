@@ -15,7 +15,7 @@ const DESCRIPTION_OVERRIDES: Record<number, string> = {
   26: 'Kaak warka: rosewater pastry rings wrapped around sweet almond marzipan — Tunis celebration baking.',
   46: 'Camel tagine: Saharan camel meat slow-cooked with Moroccan savory spices — the deep camel-meat stew.',
   54: 'Osban — tripe casings packed with rice, herbs, and chickpeas, gently simmered: the stuffed-tripe sausage of Gabès.',
-  5: 'Bocadillo de calamares: flour-dusted fried squid rings packed into a crusty baguette with lemon — the Tangier street sandwich, 25 minutes.',
+  5: 'Bocadillo de calamares is a Madrid-style fried squid sandwich in crusty bread with mayonnaise and lemon. Makes four sandwiches in about 40 minutes.',
   57: 'Berkoukes: hand-rolled semolina pearls stewed in a hearty vegetable-chickpea broth — the Algerian comfort one-pot.',
 }
 
