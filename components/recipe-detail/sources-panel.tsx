@@ -70,6 +70,15 @@ export function SourcesPanel({
               )
             })}
           </ul>
+          {sources.some((s) => s.kind === 'book') && (
+            <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+              Book links go to Amazon. As an Amazon Associate I earn from qualifying purchases.{' '}
+              <a href="/affiliate-disclosure" className="underline underline-offset-2 hover:text-primary">
+                Affiliate disclosure
+              </a>
+              .
+            </p>
+          )}
         </div>
       )}
     </div>

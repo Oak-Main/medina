@@ -53,9 +53,10 @@ export default function AffiliateDisclosurePage() {
               notes, or the accuracy and safety information shown in an entry.
             </p>
             <p>
-              Bibliographic and food-safety references in “Sources consulted” and
-              “Cross-checked against” are provided for attribution and further reading. They do
-              not use the affiliate tracking parameter used by optional shop modules.
+              References in “Sources consulted” and “Cross-checked against” are provided for
+              attribution and further reading. The book references link to Amazon and carry
+              our Amazon tracking ID. As an Amazon Associate I earn from qualifying purchases.
+              The website and food-safety references are plain links.
             </p>
             <p>
               Retailers process information under their own privacy policies after you leave this
