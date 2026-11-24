@@ -109,7 +109,8 @@ class AnswerLed(unittest.TestCase):
         self.assertIn(CASES[recipe_id][1].lower(), words(intro).lower())
         faq, = article.findall(".//section[@data-block='faq']")
         pairs = [(words(d.find("summary")), words(d.find("p"))) for d in faq.findall("details")]
-        self.assertEqual(len(pairs), 2)
+        # Recipe 11 (Chapati Zanzibari) gained a third FAQ, on storage, in #36 and #37.
+        self.assertEqual(len(pairs), 3 if recipe_id == 11 else 2)
         self.assertEqual(len({q for q, _ in pairs}), len(pairs))
         nodes = list(schema_nodes(root))
         faq_ld, = [n for n in nodes if n["@type"] == "FAQPage"]
