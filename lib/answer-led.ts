@@ -5,6 +5,9 @@ export type AnswerLedRecipe = {
   description: string
   answer: string
   faqs: { question: string; answer: string }[]
+  /** Optional cross-category internal links (rendered under the FAQ). Copy
+   * must be grounded — anchors describe the linked page truthfully. */
+  relatedLinks?: { label: string; href: string }[]
   // A definition may be published while its cooking method awaits culinary review.
   methodHold?: { message: string; source: string; url: string }
 }
@@ -21,6 +24,13 @@ export const ANSWER_LED_RECIPES: Partial<Record<number, AnswerLedRecipe>> = {
     faqs: [
       { question: 'What makes Zanzibar chapati flaky?', answer: 'Fat separates the thin sheets of dough as they coil. Resting the coils before rolling them out helps preserve the layers.' },
       { question: 'When do you clap the chapatis?', answer: 'Just after each chapati comes off the skillet, press it lightly from the sides to separate its warm layers.' },
+      { question: 'How do you store chapati zanzibari, and can the dough be frozen?', answer: 'Wrapped in cloth at room temperature it keeps a day and revives on the pan. The coiled rounds freeze for up to 2 weeks — thaw and roll to order.' },
+    ],
+    relatedLinks: [
+      { label: 'Msemen with Amlou — this bread\u2019s Moroccan cousin', href: '/recipes/16' },
+      { label: 'Camel Meat Tagine — the Saharan slow-cooked stew', href: '/recipes/46' },
+      { label: 'Dfina Sabbath Stew — cooked overnight', href: '/recipes/56' },
+      { label: 'Snail Babbouche Broth — the Marrakech night-market bowl', href: '/recipes/15' },
     ],
   },
   12: {

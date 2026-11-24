@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Geist, Playfair_Display } from 'next/font/google'
 import { SITE_NAME, SITE_URL } from '@/lib/schema'
 import './theme.css'
+import './polish.css'
 
 const geist = Geist({
   subsets: ['latin'],

@@ -1,0 +1,83 @@
+{
+  "status": "release_prepared_not_deployed",
+  "frozen_at_utc": "2026-11-22T15:53:33.589561+00:00",
+  "repository": "Oak-Main/medina",
+  "pull_request": "https://github.com/Oak-Main/medina/pull/35",
+  "release_authorized": true,
+  "authorization_scope": "User explicitly approved the recommended page/dependency corrections, congruent pushes/merges, deployment, and live verification. No paid API use or purchases.",
+  "baseline": {
+    "source_file": "docs/seo/superdesk-2026-11-22.json",
+    "source_sha256": "ec91c92148e29981a13b72b85c1b27162a0b4ad41fbaeb6c7e57500225576bf3",
+    "kind": "Previously captured final GSC export frozen before release; not newly captured search data",
+    "captured_at_utc": {
+      "first": "2026-11-22T11:15:56.153Z",
+      "last": "2026-11-22T11:15:56.253Z"
+    },
+    "current_window": {
+      "start": "2026-10-24",
+      "end": "2026-11-20",
+      "days": 28
+    },
+    "comparison_window": {
+      "start": "2026-09-26",
+      "end": "2026-10-23",
+      "days": 28
+    },
+    "latest_final_data_date": "2026-11-20",
+    "refresh_attempt": "Unavailable: the Dell source was offline and GSC Wizard refused access with payment_required because the subscription had expired. No subscription was purchased.",
+    "countries": "all",
+    "devices": "all",
+    "search_type": "web",
+    "data_state": "final",
+    "limitation": "No fresh country/device cohorts or later dates could be queried at release; preserve this limitation when interpreting results."
+  },
+  "previous_production": {
+    "last_ready_deployment_id": "dpl_GLjU3RwBqbwa6Pni7xJnapNavM8M",
+    "git_sha": "57948d47e35803799491edc3cc34f930284468bc",
+    "deployment_url": "https://maghreb-culinary-codex-e96kp28sn-kevynsgrin-a11ys-projects.vercel.app"
+  },
+  "before_content": [
+    {
+      "url": "https://www.tasteofmedina.com/recipes/25",
+      "effective_url": "https://www.tasteofmedina.com/recipes/25",
+      "http_status": 200,
+      "captured_at_utc": "2026-11-22T15:53:01.292012+00:00",
+      "body_sha256": "08f825fff9eb2cd7a84f413f1311c05aeb4b75b2711fbc030fa0fc99906c0e54",
+      "response_headers": {
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-type": "text/html; charset=utf-8",
+        "date": "Sun, 22 Nov 2026 15:53:01 GMT",
+        "etag": "\"768a80835a0ddc33f6aff514f416b98c\"",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "cle1::v42tn-1795362781179-50fadc5d8d26"
+      }
+    },
+    {
+      "url": "https://www.tasteofmedina.com/recipes/5",
+      "effective_url": "https://www.tasteofmedina.com/recipes/5",
+      "http_status": 200,
+      "captured_at_utc": "2026-11-22T15:53:04.949640+00:00",
+      "body_sha256": "96c4ce4c66afaba2c49592d489806e09ecfcd6872094dce7a85ab156375837e3",
+      "response_headers": {
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-type": "text/html; charset=utf-8",
+        "date": "Sun, 22 Nov 2026 15:53:04 GMT",
+        "etag": "\"0a628399b0847c1691abaab220890ba0\"",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "cle1::xg7jz-1795362784772-6fd9302d05b1"
+      }
+    }
+  ],
+  "release_result": {
+    "deployed_at_utc": null,
+    "deployed_revision": null,
+    "deployment_id": null,
+    "instruction": "Record observed release identifiers and live acceptance separately after production is ready; merge time is not ship time."
+  },
+  "review": {
+    "day14": "Directional review using 14 complete post-release days after data settles; compare matching query/country/device scopes and report absolute counts.",
+    "day28": "Review the first complete 28-day post-release window against the immutable ship-time baseline; report clicks, impressions, CTR, position and composition changes.",
+    "sparse_results": "Keep inconclusive if exposure or counts are too small or composition/seasonality confounds comparison. Three to five first relevant clicks is an operational checkpoint, not statistical proof.",
+    "monetization": "No conversion or revenue claim established by these GSC measurements."
+  }
+}
