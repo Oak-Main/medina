@@ -60,7 +60,7 @@ export function SourcesPanel({
                   <a
                     href={s.url}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel={s.kind === 'book' ? 'sponsored nofollow noopener noreferrer' : 'noopener noreferrer'}
                     className="group flex items-start gap-2.5 text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
                     <Icon className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
@@ -70,6 +70,15 @@ export function SourcesPanel({
               )
             })}
           </ul>
+          {sources.some((s) => s.kind === 'book') && (
+            <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+              Book links go to Amazon. As an Amazon Associate I earn from qualifying purchases.{' '}
+              <a href="/affiliate-disclosure" className="underline underline-offset-2 hover:text-primary">
+                Affiliate disclosure
+              </a>
+              .
+            </p>
+          )}
         </div>
       )}
     </div>
