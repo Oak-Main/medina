@@ -17,7 +17,7 @@ export function amazonSearchUrl(query: string, includeAffiliateTag = true): stri
 
 /**
  * amazon.com (US) Associates tracking ID for tasteofmedina.com, used on the book
- * citations in the sources panel. Create it in Associates Central before this ships.
+ * citations in the sources panel. Created in Associates Central on Nov 26, 2026 (store utilityportfo-20).
  * The optional shop module still follows NEXT_PUBLIC_AMAZON_ASSOCIATE_TAG.
  */
 export const BOOK_CITATION_TAG = 'tasteofmedina-20'
