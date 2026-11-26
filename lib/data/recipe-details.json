@@ -2281,7 +2281,7 @@
     ],
     "method": [
       "Marinate: Rub chicken with minced lemon flesh, garlic, ginger, turmeric, saffron, oil, salt, and pepper. Marinate for 1 hour.",
-      "Simmer: Cook onions and marinated chicken on medium (350°F / 175°C) for 15 minutes. Add 1 cup water, cover, and simmer on low (190°F / 88°C) for 45 minutes.",
+      "Simmer: Cook onions and marinated chicken on medium (350°F / 175°C) for 15 minutes. Add 1 cup water, cover, and simmer on low (190°F / 88°C) for 45 minutes. The chicken is done at 165°F/74°C.",
       "Reduce Daghmira: Remove chicken to broil. Boil down remaining onion broth, stirring constantly, until it reduces to a thick caramelized onion paste.",
       "Garnish: Return chicken to pot with olives and lemon skin. Simmer for 5 minutes and serve."
     ],
@@ -2433,7 +2433,7 @@
     "method": [
       "Meatballs: Combine ground beef, grated onion, cilantro, and spices. Shape into bite-sized balls.",
       "Sauce: Sauté garlic in olive oil on medium (350°F / 175°C) for 1 minute. Add tomatoes and spices. Simmer for 10 minutes.",
-      "Cook: Add meatballs. Cover and simmer on medium-low for 15 minutes.",
+      "Cook: Add meatballs. Cover and simmer on medium-low for 15 minutes. The meatballs are done at 160°F/71°C.",
       "Poach Eggs: Crack eggs into 4 small wells in the sauce. Cover and poach for 5 to 6 minutes until set but yolks are runny."
     ],
     "noteLabel": "Accuracy note",
@@ -2934,7 +2934,7 @@
     ],
     "method": [
       "Put chicken, onions, oil, smen, spices, salt, herbs, and water in a large pot. Simmer covered 30 minutes.",
-      "Add lentils and drained fenugreek. Continue gently until chicken is cooked and legumes are tender, 35-50 minutes. Remove chicken and reduce broth slightly; it should remain plentiful.",
+      "Add lentils and drained fenugreek. Continue gently until chicken is cooked and legumes are tender, 35-50 minutes. Remove chicken and reduce broth slightly; it should remain plentiful. The chicken is done at 165°F/74°C.",
       "Steam torn msemen or trid briefly over the broth, or warm in a covered pan with a few spoonfuls of broth.",
       "Mound bread strips on a platter, moisten thoroughly with broth, and top with lentils, onions, fenugreek, and chicken. Serve extra broth alongside."
     ],
@@ -4814,7 +4814,7 @@
       "Slice potatoes lengthwise into 1/3-inch/8-mm slabs. Cut a pocket into each slab or pair two smaller slices. Soak in salted water 20 minutes, then dry.",
       "Mix meat, grated onion, parsley, garlic, paprika, cinnamon, pepper, and 1/2 tsp salt. Fill potato pockets without overstuffing.",
       "Dip in beaten egg, then flour. Shallow-fry at 350°F/175°C until golden on both sides; the meat need not yet be cooked through.",
-      "In a wide pot, soften sliced onion in olive oil. Add paste, tomatoes, water, turmeric, and remaining salt. Arrange mafroum snugly in one layer, cover, and simmer 45-60 minutes, until potatoes are tender and meat reaches 160°F/71°C."
+      "In a wide pot, soften sliced onion in olive oil. Add paste, tomatoes, water, turmeric, and remaining salt. Arrange mafroum snugly in one layer, cover, and simmer 45-60 minutes, until potatoes are tender and meat reaches 160°F/71°C. The meat filling is done at 160°F/71°C."
     ],
     "noteLabel": "Accuracy note",
     "accuracyNote": "Frying sets the stuffed potato before braising; skipping that step makes the pieces prone to falling apart.",
@@ -6525,7 +6525,7 @@
       }
     ],
     "method": [
-      "Sauté sliced merguez in olive oil in a skillet over medium-high heat (375°F / 190°C) for 5 minutes until browned. Transfer merguez to a bowl, leaving the rendered fat in the skillet.",
+      "Sauté sliced merguez in olive oil in a skillet over medium-high heat (375°F / 190°C) for 5 minutes until browned. Transfer merguez to a bowl, leaving the rendered fat in the skillet. The merguez is done at 160°F/71°C.",
       "Sauté chopped onion, peppers, and garlic in the sausage fat over medium heat (350°F / 175°C) for 8 minutes until soft.",
       "Stir in diced tomatoes, harissa, salt, and pepper. Simmer on low for 10 minutes until a thick, bubbling sauce forms.",
       "Return the cooked merguez to the skillet. Create 4 wells in the sauce and crack 1 egg into each well.",
